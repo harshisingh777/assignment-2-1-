@@ -1,0 +1,35 @@
+(a) Inserts
+
+INSERT INTO Advisors VALUES
+('Dr. Sharma','sharma@uni.edu'),
+('Dr. Verma','verma@uni.edu');
+
+INSERT INTO Instructors VALUES
+('Prof. Rao','rao@uni.edu'),
+('Prof. Khan','khan@uni.edu');
+
+INSERT INTO Courses VALUES
+('CS101','Database Systems','Prof. Rao'),
+('CS202','Operating Systems','Prof. Khan');
+
+INSERT INTO Students VALUES
+(1,'Rahul','CSE','Dr. Sharma',2024),
+(2,'Priya','CSE','Dr. Sharma',2025),
+(3,'Aman','ECE','Dr. Verma',2024);
+
+INSERT INTO Enrollments VALUES
+(1,'CS101',82),
+(2,'CS101',30),
+(3,'CS202',71);
+
+(b)
+UPDATE Instructors
+SET instructor_email='newrao@uni.edu'
+WHERE instructor_name='Prof. Rao';
+
+(c)
+DELETE FROM Enrollments
+WHERE marks_obtained < 35;
+
+(d)
+DELETE FROM StudentRecords;

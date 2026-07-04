@@ -1,0 +1,50 @@
+(a)
+BEGIN;
+
+DELETE FROM Enrollments
+WHERE student_id=1
+AND course_code='CS101';
+
+INSERT INTO Enrollments
+VALUES(1,'CS404',0);
+
+COMMIT;
+
+/* If insert fails */
+
+ROLLBACK;
+(b)
+
+Anomaly
+
+Non-repeatable Read
+
+Minimum isolation level preventing it:
+
+REPEATABLE READ
+(c)
+
+Anomaly:
+
+Write Skew
+
+(also commonly described as an overbooking/lost business rule problem)
+
+Isolation level:
+
+SERIALIZABLE
+(d)
+
+Under MVCC, when the reporting transaction starts, it receives a snapshot of the database.
+
+Even if another transaction updates the student's marks and commits later, the reporting transaction continues to see the original value from its snapshot whenever it rereads the same row.
+
+This happens because MVCC provides readers with a consistent snapshot while writers create new row versions instead of overwriting existing ones.
+
+The isolation level that guarantees this consistent snapshot throughout the transaction is:
+
+REPEATABLE READ
+
+(in PostgreSQL, REPEATABLE READ provides transaction-wide snapshot isolation.)
+
+Trade-off: Long-running transactions retain older row versions for longer, increasing storage usage and reducing cleanup efficiency. They may also experience more serialization conflicts compared to lower isolation levels.

@@ -1,0 +1,160 @@
+Task 1.1 — Normalization
+(a) Functional Dependencies
+Composite Primary Key
+(student_id, course_code)
+
+Given Functional Dependencies
+student_id → student_name, department, advisor_name, enrollment_year
+
+advisor_name → advisor_email
+
+course_code → course_name, instructor_name
+
+instructor_name → instructor_email
+
+
+Partial Dependencies
+
+A partial dependency occurs when part of the composite key determines a non-key attribute.
+
+From student_id
+student_id
+    → student_name
+    → department
+    → advisor_name
+    → enrollment_year
+
+These depend only on student_id, not on the entire key
+
+From course_code
+course_code
+    → course_name
+    → instructor_name
+
+These depend only on course_code.
+
+Transitive Dependencies
+Advisor
+student_id
+      ↓
+advisor_name
+      ↓
+advisor_email
+
+Therefore
+
+student_id → advisor_email
+
+is transitive.
+
+Instructor
+course_code
+      ↓
+instructor_name
+      ↓
+instructor_email
+
+Therefore
+
+course_code → instructor_email
+
+is transitive.
+
+
+
+(b) BCNF Decomposition
+Advisors
+Advisors
+---------
+advisor_name (PK)
+advisor_email
+
+Dependency resolved
+
+advisor_name → advisor_email
+Instructors
+Instructors
+--------------
+instructor_name (PK)
+instructor_email
+
+Dependency resolved
+
+instructor_name → instructor_email
+Courses
+Courses
+---------
+course_code (PK)
+course_name
+instructor_name (FK)
+
+Foreign Key
+
+instructor_name
+→ Instructors(instructor_name)
+
+Dependency resolved
+
+course_code
+→ course_name
+→ instructor
+Students
+Students
+----------
+student_id (PK)
+student_name
+department
+advisor_name (FK)
+enrollment_year
+
+Foreign Key
+
+advisor_name
+→ Advisors(advisor_name)
+Enrollments
+Enrollments
+------------------
+student_id (FK)
+course_code (FK)
+marks_obtained
+
+PK(student_id, course_code)
+
+Foreign Keys
+
+student_id
+→ Students
+
+course_code
+→ Courses
+
+This removes:
+
+update anomaly
+insertion anomaly
+deletion anomaly
+(c) Data Integrity
+Entity Integrity
+
+✅ Satisfied
+
+Every table has a primary key.
+
+Referential Integrity
+
+✅ Satisfied
+
+Foreign keys enforce valid references.
+
+Domain Integrity
+
+✅ Satisfied
+
+INT for IDs
+VARCHAR for names
+DECIMAL for marks
+User-defined Integrity
+
+✅ Satisfied
+
+
